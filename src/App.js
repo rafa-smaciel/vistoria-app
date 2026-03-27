@@ -7,15 +7,15 @@ import VistorIAErrorBoundary from './components/VistorIAErrorBoundary';
 import VistorIARouteGuard from './components/VistorIARouteGuard';
 
 // Lazy load pages
-const Landing = React.lazy(() => import('./pages/Landing'));
-const Login = React.lazy(() => import('./pages/Login'));
-const CheckinFlow = React.lazy(() => import('./pages/CheckinFlow'));
-const CheckoutFlow = React.lazy(() => import('./pages/CheckoutFlow'));
-const InspectionResult = React.lazy(() => import('./pages/InspectionResult'));
-const Dashboard = React.lazy(() => import('./pages/Dashboard'));
-const AdminSettings = React.lazy(() => import('./pages/AdminSettings'));
-const Proposta = React.lazy(() => import('./pages/Proposta'));
-const Docs = React.lazy(() => import('./pages/Docs'));
+const Landing = React.lazy(() => import('./views/Landing'));
+const Login = React.lazy(() => import('./views/Login'));
+const CheckinFlow = React.lazy(() => import('./views/CheckinFlow'));
+const CheckoutFlow = React.lazy(() => import('./views/CheckoutFlow'));
+const InspectionResult = React.lazy(() => import('./views/InspectionResult'));
+const Dashboard = React.lazy(() => import('./views/Dashboard'));
+const AdminSettings = React.lazy(() => import('./views/AdminSettings'));
+const Proposta = React.lazy(() => import('./views/Proposta'));
+const Docs = React.lazy(() => import('./views/Docs'));
 
 const SuspenseFallback = () => (
   <div style={{
