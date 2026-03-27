@@ -942,8 +942,8 @@ export default function VistorIALanding() {
               <NavButton $primary onClick={() => navigate('/checkout')}>Checkout</NavButton>
             </>
           ) : (
-            <NavButton $primary onClick={() => navigate('/login')}>
-              <FaSignInAlt /> Entrar
+            <NavButton $primary onClick={() => setShowDemoLogin(true)}>
+              <FaSignInAlt /> Iniciar Teste
             </NavButton>
           )}
         </NavActions>
