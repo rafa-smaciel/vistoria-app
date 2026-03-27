@@ -1,5 +1,4 @@
 import type { Metadata } from 'next';
-import StyledComponentsRegistry from './registry';
 
 export const metadata: Metadata = {
   title: 'VistorIA | Inspeção Veicular com IA - ProAgentes',
@@ -14,11 +13,6 @@ export const metadata: Metadata = {
     locale: 'pt_BR',
     type: 'website',
   },
-  twitter: {
-    card: 'summary_large_image',
-    title: 'VistorIA | Inspeção Veicular com IA',
-    description: 'Laudo completo com evidência auditável em menos de 45 segundos.',
-  },
 };
 
 export default function RootLayout({
@@ -29,7 +23,6 @@ export default function RootLayout({
   return (
     <html lang="pt-BR">
       <head>
-        <link rel="icon" href="/favicon.ico" />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link
@@ -38,7 +31,7 @@ export default function RootLayout({
         />
       </head>
       <body style={{ margin: 0 }}>
-        <StyledComponentsRegistry>{children}</StyledComponentsRegistry>
+        {children}
       </body>
     </html>
   );
