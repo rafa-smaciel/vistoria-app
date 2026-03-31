@@ -971,7 +971,7 @@ export default function VistorIALanding() {
         </div>
         <HeroStats>
           <Stat><div className="value">&lt;45s</div><div className="label">Laudo completo</div></Stat>
-          <Stat><div className="value">R$ 39,90</div><div className="label">por vistoria</div></Stat>
+          <Stat><div className="value">24/7</div><div className="label">Operação contínua</div></Stat>
           <Stat><div className="value">7</div><div className="label">Verificações por inspeção</div></Stat>
           <Stat><div className="value">100%</div><div className="label">Evidência auditável</div></Stat>
         </HeroStats>
@@ -1035,6 +1035,41 @@ export default function VistorIALanding() {
         </ReqList>
       </Section>
 
+      {/* Escopo do Piloto */}
+      <Section $alt>
+        <SectionTitle>O que está incluído</SectionTitle>
+        <SectionSubtitle>
+          Plataforma VistorIA completa para o seu Centro de Distribuição
+        </SectionSubtitle>
+        <IncludeGrid>
+          {LANDING_INCLUDES.map((item, i) => (
+            <IncludeRow key={i}>
+              <FaCheckCircle />
+              <span>{item}</span>
+            </IncludeRow>
+          ))}
+        </IncludeGrid>
+      </Section>
+
+      {/* Compromissos SLA */}
+      <Section>
+        <SectionTitle>Compromissos</SectionTitle>
+        <SectionSubtitle>
+          Métricas de performance garantidas durante o piloto
+        </SectionSubtitle>
+        <SlaGrid2>
+          {LANDING_SLA.map((item, i) => (
+            <SlaCard key={i}>
+              <div className="sla-icon">{item.icon}</div>
+              <div className="sla-info">
+                <span className="sla-title">{item.title}</span>
+                <span className="sla-value">{item.value}</span>
+              </div>
+            </SlaCard>
+          ))}
+        </SlaGrid2>
+      </Section>
+
       {/* Investimento */}
       <Section $alt>
         <SectionTitle>Investimento</SectionTitle>
@@ -1061,41 +1096,6 @@ export default function VistorIALanding() {
             </div>
           </PriceCard>
         </CommercialGrid>
-      </Section>
-
-      {/* Escopo do Piloto */}
-      <Section>
-        <SectionTitle>O que está incluído</SectionTitle>
-        <SectionSubtitle>
-          Plataforma VistorIA completa para o seu Centro de Distribuição
-        </SectionSubtitle>
-        <IncludeGrid>
-          {LANDING_INCLUDES.map((item, i) => (
-            <IncludeRow key={i}>
-              <FaCheckCircle />
-              <span>{item}</span>
-            </IncludeRow>
-          ))}
-        </IncludeGrid>
-      </Section>
-
-      {/* Compromissos SLA */}
-      <Section $alt>
-        <SectionTitle>Compromissos</SectionTitle>
-        <SectionSubtitle>
-          Métricas de performance garantidas durante o piloto
-        </SectionSubtitle>
-        <SlaGrid2>
-          {LANDING_SLA.map((item, i) => (
-            <SlaCard key={i}>
-              <div className="sla-icon">{item.icon}</div>
-              <div className="sla-info">
-                <span className="sla-title">{item.title}</span>
-                <span className="sla-value">{item.value}</span>
-              </div>
-            </SlaCard>
-          ))}
-        </SlaGrid2>
       </Section>
 
       {/* Roadmap */}
