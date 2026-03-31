@@ -571,10 +571,6 @@ function extractFramesFromVideo(videoSource, numFrames = 40) {
     video.onloadedmetadata = async () => {
       try {
         const duration = video.duration;
-        const start = duration * 0.05;
-        const end = duration * 0.95;
-        const interval = (end - start) / (numFrames - 1);
-
         const canvas = document.createElement('canvas');
         const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
         const MAX = isIOS ? 720 : 1024;
@@ -585,9 +581,25 @@ function extractFramesFromVideo(videoSource, numFrames = 40) {
         canvas.height = h;
         const ctx = canvas.getContext('2d');
 
+        // Front-weighted frame distribution: extract more frames from the
+        // beginning of the video where the cab plate is visible on entry.
+        // 60% of frames from first 40% of video, 40% from the rest.
+        const earlyCount = Math.round(numFrames * 0.6);
+        const lateCount = numFrames - earlyCount;
+        const earlyStart = duration * 0.02;
+        const earlyEnd = duration * 0.40;
+        const lateStart = duration * 0.40;
+        const lateEnd = duration * 0.95;
+        const earlyInterval = (earlyEnd - earlyStart) / Math.max(earlyCount - 1, 1);
+        const lateInterval = (lateEnd - lateStart) / Math.max(lateCount - 1, 1);
+
+        const timePoints = [];
+        for (let i = 0; i < earlyCount; i++) timePoints.push(earlyStart + i * earlyInterval);
+        for (let i = 0; i < lateCount; i++) timePoints.push(lateStart + i * lateInterval);
+
         const frames = [];
-        for (let i = 0; i < numFrames; i++) {
-          video.currentTime = start + (i * interval);
+        for (let i = 0; i < timePoints.length; i++) {
+          video.currentTime = timePoints[i];
           await new Promise(r => {
             const t = setTimeout(r, isIOS ? 1500 : 800);
             video.onseeked = () => { clearTimeout(t); r(); };
