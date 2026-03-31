@@ -1204,11 +1204,21 @@ export default function InspectionResult() {
               <DetailRow><span className="label">Confianca</span><span className="value">{fmtConf(rf04.confidence)}</span></DetailRow>
               {rf04.evidence && <EvidenceText>{rf04.evidence}</EvidenceText>}
               {(rf04.visual_signatures || rf04.details) && (
-                <>
-                  <DetailRow><span className="label">Detalhes visuais</span><span className="value">{
-                    Object.entries(rf04.visual_signatures || rf04.details).map(([k, v]) => `${k}: ${v}`).join(' | ')
-                  }</span></DetailRow>
-                </>
+                <div style={{ marginTop: 8 }}>
+                  <DetailRow><span className="label">Detalhes visuais</span></DetailRow>
+                  {Object.entries(rf04.visual_signatures || rf04.details).map(([k, v]) => (
+                    <DetailRow key={k} style={{ paddingLeft: 16 }}>
+                      <span className="label" style={{ textTransform: 'capitalize' }}>{k.replace(/_/g, ' ')}</span>
+                      <span className="value">{
+                        typeof v === 'object' && v !== null
+                          ? (v.compativel !== undefined
+                              ? `${v.compativel ? 'Compatível' : 'Divergente'}${v.obs ? ` — ${v.obs}` : ''}${v.video ? ` (vídeo: ${v.video}, foto: ${v.foto})` : ''}`
+                              : JSON.stringify(v))
+                          : String(v)
+                      }</span>
+                    </DetailRow>
+                  ))}
+                </div>
               )}
               {rf04.bbox?.frame_index !== undefined &&
                inspection?.checkin_video_frames?.[rf04.bbox.frame_index] && (
