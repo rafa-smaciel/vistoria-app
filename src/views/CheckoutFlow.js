@@ -16,12 +16,11 @@ import { supabase, VISTORIA_SUPABASE_URL as SUPABASE_URL, VISTORIA_ANON_KEY } fr
 import { useAuth } from '../contexts/AuthContext';
 import { vistoriaColors as colors } from '../components/theme';
 const DEMO_STORAGE_URL = `${SUPABASE_URL}/storage/v1/object/public/vistoria-demo`;
-// 36 real photos from Auto-o-Matic demo — load all for complete presentation
-// Demo: 10 fotos estratégicas cobrindo veículo completo + carga + placa
-// 01=lateral completa, 05=detalhe carga embalada, 10=peça cônica, 15=lateral oposta
-// 17=detalhe alta res, 20=cabine+lona, 25=traseira+pneus, 28=lanternas traseiras
-// 33=detalhe carga plástico, 36=frente com placa visível (RVV0J74)
-const DEMO_PHOTOS = [1, 5, 10, 15, 17, 20, 25, 28, 33, 36].map(i => `${DEMO_STORAGE_URL}/demo-checkout-${String(i).padStart(2, '0')}.jpeg`);
+// 10 fotos selecionadas para demo — SELEÇÃO pasta ESTOFOQUE
+const DEMO_PHOTOS = [
+  `${DEMO_STORAGE_URL}/demo-checkout-01.png`,
+  ...([2, 3, 4, 5, 6, 7, 8, 9, 10].map(i => `${DEMO_STORAGE_URL}/demo-checkout-${String(i).padStart(2, '0')}.jpeg`)),
+];
 
 // ============================================
 // ANIMATIONS — plain CSS names (no styled-components keyframes to avoid v6 error #12)
