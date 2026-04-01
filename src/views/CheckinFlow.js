@@ -584,9 +584,10 @@ function extractFramesFromVideo(videoSource, numFrames = 40) {
         // Front-weighted frame distribution: extract more frames from the
         // beginning of the video where the cab plate is visible on entry.
         // 60% of frames from first 40% of video, 40% from the rest.
+        // Start at 0s — the cab plate may only be visible in the very first frames.
         const earlyCount = Math.round(numFrames * 0.6);
         const lateCount = numFrames - earlyCount;
-        const earlyStart = duration * 0.02;
+        const earlyStart = 0;
         const earlyEnd = duration * 0.40;
         const lateStart = duration * 0.40;
         const lateEnd = duration * 0.95;
