@@ -884,16 +884,16 @@ export default function Proposta() {
       {/* ── MODELO DE PARCERIA AUTO-O-MATIC ── */}
       <Section>
         <SectionLabel>Modelo de Parceria</SectionLabel>
-        <SectionTitle>Como a Auto-o-Matic ganha em cada contrato indicado</SectionTitle>
+        <SectionTitle>Licença Vega + markup Auto-o-Matic</SectionTitle>
         <SectionDesc>
-          Revenue share recorrente de <strong>20% do MRR</strong> sobre todo contrato ativo indicado pela Auto-o-Matic —
-          seja Proposta 1 (plataforma UI) ou Proposta 2 (API Corporate). Pagamento direto mensal, sem markup, sem intermediação técnica.
-          A relação comercial com o cliente final é da Vega; a Auto-o-Matic recebe como canal preferencial pelo trabalho de ponte, qualificação e acompanhamento.
+          A Vega licencia a API Corporate à Auto-o-Matic por um valor fixo por auditoria.
+          A Auto-o-Matic revende ao cliente final pelo preço que determinar, adicionando o markup necessário para remunerar o trabalho de canal
+          (prospecção, qualificação, relacionamento, suporte comercial). A diferença é a margem bruta da Auto-o-Matic em cada operação.
         </SectionDesc>
 
         <div style={{ marginTop: 24 }}>
           <div style={{ fontSize: 11, fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.08em', color: '#64748b', marginBottom: 12 }}>
-            Estrutura do rev share
+            Estrutura do modelo
           </div>
           <CostTable>
             <CostRow $header $cols="2fr 3fr">
@@ -901,24 +901,24 @@ export default function Proposta() {
               <span>Descrição</span>
             </CostRow>
             <CostRow $cols="2fr 3fr">
-              <span style={{ fontWeight: 700 }}>Percentual aplicado</span>
-              <span className="muted"><strong>20% sobre o MRR</strong> (valor mensal recorrente cobrado do cliente)</span>
+              <span style={{ fontWeight: 700 }}>Licença Vega</span>
+              <span className="muted"><strong>R$ 9,90 por auditoria</strong> — valor cobrado da Auto-o-Matic pelo uso da API Corporate</span>
             </CostRow>
             <CostRow $cols="2fr 3fr">
-              <span style={{ fontWeight: 700 }}>Base de cálculo</span>
-              <span className="muted">Preço de venda contratado — formulado pela Auto-o-Matic caso a caso</span>
+              <span style={{ fontWeight: 700 }}>Preço ao cliente final</span>
+              <span className="muted">Determinado pela Auto-o-Matic — adiciona markup sobre R$ 9,90 conforme contexto do prospect</span>
             </CostRow>
             <CostRow $cols="2fr 3fr">
-              <span style={{ fontWeight: 700 }}>Periodicidade</span>
-              <span className="muted">Pagamento mensal enquanto o contrato com o cliente estiver ativo</span>
+              <span style={{ fontWeight: 700 }}>Margem Auto-o-Matic</span>
+              <span className="muted">Diferença entre preço de venda e licença Vega (R$ 9,90) × volume mensal</span>
+            </CostRow>
+            <CostRow $cols="2fr 3fr">
+              <span style={{ fontWeight: 700 }}>Faturamento</span>
+              <span className="muted">Auto-o-Matic fatura diretamente o cliente final e paga Vega mensalmente conforme volume consumido</span>
             </CostRow>
             <CostRow $cols="2fr 3fr">
               <span style={{ fontWeight: 700 }}>Escopo</span>
-              <span className="muted">Contratos Proposta 1 (plataforma UI) <strong>e</strong> Proposta 2 (API Corporate) indicados pela Auto-o-Matic</span>
-            </CostRow>
-            <CostRow $cols="2fr 3fr">
-              <span style={{ fontWeight: 700 }}>Forma de repasse</span>
-              <span className="muted">Vega emite pagamento direto à Auto-o-Matic até o dia 10 do mês seguinte ao faturamento do cliente</span>
+              <span className="muted">Contratos Proposta 2 (API Corporate) indicados pela Auto-o-Matic. Proposta 1 (UI) segue modelo direto Vega → cliente.</span>
             </CostRow>
             <CostRow $cols="2fr 3fr">
               <span style={{ fontWeight: 700 }}>Distribuição interna</span>
@@ -930,10 +930,11 @@ export default function Proposta() {
         <CostNote style={{ marginTop: 16 }}>
           <strong>Canal Vega preferencial para logística.</strong>{' '}
           A Auto-o-Matic recebe suporte comercial dedicado, materiais de apoio para vendas, treinamento técnico do time e co-branding nas apresentações a clientes indicados.
-          O modelo é <strong>recorrente e escalável</strong>: cada contrato fechado gera MRR permanente enquanto o cliente permanece ativo.
+          O modelo é <strong>recorrente e escalável</strong>: cada contrato fechado gera margem permanente enquanto o cliente permanece ativo.
           <br /><br />
           <strong>A Auto-o-Matic forma o preço de venda.</strong>{' '}
-          A Vega fornece apenas os custos de entrega (seção "Transparência de custos" abaixo) e o percentual de rev share acordado. O quanto o cliente final paga é decisão de canal — a Auto-o-Matic ajusta conforme volume, complexidade e relacionamento com cada prospect.
+          A Vega publica apenas a licença Vega (R$ 9,90) e o custo rateado de entrega (seção "Transparência de custos" abaixo).
+          O quanto o cliente final paga é decisão exclusiva de canal — a Auto-o-Matic ajusta o markup conforme volume, complexidade e relacionamento com cada prospect.
         </CostNote>
       </Section>
 
@@ -1156,65 +1157,45 @@ export default function Proposta() {
             Proposta 2 — API Corporate: custo rateado por 500 auditorias/mês
           </div>
           <CostTable>
-            <CostRow $header $cols="2fr 1fr 1fr">
+            <CostRow $header $cols="2fr 1fr">
               <span>Componente de custo</span>
-              <span>Ano 1 (ramp)</span>
-              <span>Steady state</span>
+              <span>Mensal</span>
             </CostRow>
-            <CostRow $cols="2fr 1fr 1fr">
-              <span>Infra base (Supabase + Vercel + fallback + APM)</span>
-              <span className="muted">R$ 230</span>
-              <span className="muted">R$ 230</span>
+            <CostRow $cols="2fr 1fr">
+              <span>Supabase (projeto isolado vistoria-demo)</span>
+              <span className="muted">R$ 120 <small style={{opacity:0.6}}>(≈ US$ 20)</small></span>
             </CostRow>
-            <CostRow $cols="2fr 1fr 1fr">
-              <span>Gemini VLM (500 × média R$ 0,45)</span>
-              <span className="muted">R$ 225</span>
-              <span className="muted">R$ 225</span>
+            <CostRow $cols="2fr 1fr">
+              <span>Vercel Pro (deploys + CDN)</span>
+              <span className="muted">R$ 120</span>
             </CostRow>
-            <CostRow $cols="2fr 1fr 1fr">
-              <span>SageMaker training + dataset storage</span>
-              <span className="muted">R$ 230</span>
-              <span className="muted">R$ 230</span>
+            <CostRow $cols="2fr 1fr">
+              <span>OpenAI API (fallback GPT-4V)</span>
+              <span className="muted">R$ 20</span>
             </CostRow>
-            <CostRow $cols="2fr 1fr 1fr">
-              <span>YOLO inference endpoint (modelo customizado)</span>
-              <span className="muted">R$ 500</span>
-              <span className="muted">R$ 710</span>
+            <CostRow $cols="2fr 1fr">
+              <span>Gemini 2.5 Pro VLM (500 × R$ 0,31 típico)</span>
+              <span className="muted">R$ 155</span>
             </CostRow>
-            <CostRow $cols="2fr 1fr 1fr">
-              <span>Labeling (amortizado 1º ano, auto-label ano 2+)</span>
-              <span className="muted">R$ 1.500</span>
-              <span className="muted">R$ 300</span>
-            </CostRow>
-            <CostRow $cols="2fr 1fr 1fr">
-              <span>P&amp;D amortizado (engenharia de ML dedicada ao cliente)</span>
-              <span className="muted">R$ 3.000</span>
-              <span className="muted">R$ 1.500</span>
-            </CostRow>
-            <CostRow $cols="2fr 1fr 1fr" $highlight>
+            <CostRow $cols="2fr 1fr" $highlight>
               <span style={{ fontWeight: 700 }}>Custo mensal total Vega</span>
-              <span className="accent">R$ 5.685/mês</span>
-              <span className="accent">R$ 3.195/mês</span>
+              <span className="accent">R$ 415/mês</span>
             </CostRow>
-            <CostRow $cols="2fr 1fr 1fr" $highlight>
+            <CostRow $cols="2fr 1fr" $highlight>
               <span style={{ fontWeight: 700 }}>Custo rateado por auditoria (÷ 500)</span>
-              <span className="accent">≈ R$ 11,37</span>
-              <span className="accent">≈ R$ 6,39</span>
+              <span className="accent">≈ R$ 0,83</span>
+            </CostRow>
+            <CostRow $cols="2fr 1fr">
+              <span>Licença Vega API para Auto-o-Matic (por auditoria)</span>
+              <span className="accent" style={{fontWeight:700}}>R$ 9,90</span>
             </CostRow>
           </CostTable>
         </div>
 
         <CostNote style={{ marginTop: 16 }}>
-          <strong>Diferenças entre os modelos.</strong>{' '}
-          A Proposta 1 (UI) opera só com VLM — Gemini 2.5 Pro responde por toda a inteligência. É rápido de implantar, mas entrega qualidade best-effort (sem garantia contratual de acurácia).
-          A Proposta 2 (API Corporate) adiciona o stack de ML do Vixem — modelo YOLO fine-tuned com dados reais do cliente, ciclo contínuo de retraining, labeling inicial e P&amp;D dedicado. Custo maior pra Vega, mas viabiliza SLA contratual de acurácia e defensibilidade técnica de longo prazo.
-          A Vega absorve todo o delta de custo entre os modelos — o cliente não paga pelo aprendizado da máquina; paga pela qualidade entregue já amadurecida.
+          <strong>Licença Vega API: R$ 9,90 por auditoria</strong> — valor cobrado da Auto-o-Matic pelo uso dos endpoints da API Corporate. Sobre essa base, a Auto-o-Matic adiciona seu markup e forma o preço final ao cliente conforme volume, contexto e complexidade da integração.
           <br /><br />
-          <strong>Transparência de custos, não de preço de venda.</strong>{' '}
-          O custo rateado acima é a base de cálculo que a Vega entrega à Auto-o-Matic para formulação do preço final ao cliente. O preço de venda é determinado pela Auto-o-Matic no papel de canal comercial (ver seção "Modelo de Parceria").
-          <br /><br />
-          <strong>* Taxa de câmbio estimada em R$ 6,00/USD.</strong> Supabase cobre banco PostgreSQL, autenticação, storage e execução de Edge Functions.
-          Vercel cobre docs e frontend reduzido. Ambos já estão pagos e compartilhados com demais produtos da Vega.
+          <strong>* Taxa de câmbio estimada em R$ 6,00/USD.</strong> O projeto VistorIA opera em infraestrutura Supabase dedicada (projeto isolado <code>cxlzhmelcvjubebvfchf</code>), com Vercel Pro e Gemini 2.5 Pro como VLM primário. Infra atual suporta até ~5.000 auditorias/mês sem upgrade.
         </CostNote>
       </Section>
 
