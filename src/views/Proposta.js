@@ -550,10 +550,10 @@ const SLA_ITEMS = [
 ];
 
 const EXPANSION_ROWS = [
-  { cds: '1 CD (piloto)', licenca: 'R$ 39,90/vistoria', parceiro: 'Preço final ao cliente', highlight: true },
-  { cds: '50 vistorias/mês',  licenca: '≈ R$ 2.000/mês', parceiro: 'R$ 39,90/cada' },
-  { cds: '100 vistorias/mês', licenca: '≈ R$ 3.990/mês', parceiro: 'R$ 39,90/cada' },
-  { cds: '250+ vistorias/mês', licenca: 'Sob consulta', parceiro: 'Desconto por volume' },
+  { cds: '1 CD (piloto UI)',          licenca: 'R$ 39,90/vistoria', parceiro: 'Preço final ao cliente', highlight: true },
+  { cds: '50 vistorias/mês',          licenca: '≈ R$ 2.000/mês',    parceiro: 'R$ 39,90/cada' },
+  { cds: '100 vistorias/mês',         licenca: '≈ R$ 3.990/mês',    parceiro: 'R$ 39,90/cada' },
+  { cds: '250+ vistorias/mês (UI)',   licenca: 'Ver Proposta 2',    parceiro: 'Volume alto → API Corporate' },
 ];
 
 const PHASES = [
@@ -680,11 +680,10 @@ export default function Proposta() {
 
       {/* ── PRECIFICAÇÃO ── */}
       <Section>
-        <SectionLabel>Precificação</SectionLabel>
-        <SectionTitle>Modelo conforme uso</SectionTitle>
+        <SectionLabel>Proposta 1 — Plataforma completa com UI</SectionLabel>
+        <SectionTitle>Para CDs que operam manualmente via portal web</SectionTitle>
         <SectionDesc>
-          Pague apenas pelo que usar — sem mensalidade fixa, sem setup.
-          Cada vistoria completa (checkin + checkout + laudo) é uma transação.
+          Plataforma pronta para uso imediato. Operadores da portaria filmam, operadores da expedição fotografam, gestor acompanha o laudo em tempo real pelo dashboard. Sem integração técnica exigida. Pague apenas pelo que usar — sem mensalidade fixa, sem setup. Cada vistoria completa (checkin + checkout + laudo) é uma transação.
         </SectionDesc>
 
         <PricingGrid>
@@ -738,13 +737,13 @@ export default function Proposta() {
 
       <Divider />
 
-      {/* ── MARGEM DO PARCEIRO ── */}
+      {/* ── INVESTIMENTO PROPOSTA 1 ── */}
       <Section>
-        <SectionLabel>Investimento</SectionLabel>
+        <SectionLabel>Investimento — Proposta 1</SectionLabel>
         <SectionTitle>Preço direto ao cliente final</SectionTitle>
         <SectionDesc>
-          Preço único e transparente — sem intermediários, sem markup.
-          R$ 39,90 por vistoria completa é o valor final que o cliente paga.
+          Preço único e transparente para uso via portal — sem intermediários, sem markup.
+          R$ 39,90 por vistoria completa é o valor final que o cliente paga quando opera manualmente pela plataforma web.
         </SectionDesc>
 
         <MargemGrid>
@@ -768,8 +767,183 @@ export default function Proposta() {
         <MargemNote>
           <strong>Piloto sem compromisso:</strong>{' '}
           Setup zero, sem contrato longo, cancele quando quiser.
-          Hora técnica para customizações e integrações TMS/ERP: R$ 220/h.
+          Hora técnica para customizações: R$ 220/h.
         </MargemNote>
+      </Section>
+
+      <Divider />
+
+      {/* ═══════════════════════════════════════════════════════
+          TRANSIÇÃO NARRATIVA PARA PROPOSTA 2
+          ═══════════════════════════════════════════════════════ */}
+      <Section>
+        <SectionLabel>Quando a operação pede outro formato</SectionLabel>
+        <SectionTitle>Integração via API para clientes com TMS/ERP próprio</SectionTitle>
+        <SectionDesc>
+          A Proposta 1 é completa, mas pressupõe que operadores vão usar nosso portal web.
+          Clientes corporativos com software legado em operação (TMS, ERP, sistema de pátio dedicado) muitas vezes não querem adicionar nova interface ao dia-a-dia — preferem que a inteligência de inspeção seja <strong>chamada pelo próprio sistema</strong>, de dentro do fluxo que eles já dominam.
+          Para esse caso, oferecemos a <strong>Proposta 2: API Corporate</strong>. O produto técnico é o mesmo — mas o modelo de entrega, precificação e SLA são adaptados para integração programática.
+        </SectionDesc>
+      </Section>
+
+      {/* ── PROPOSTA 2: API CORPORATE ── */}
+      <Section>
+        <SectionLabel>Proposta 2 — API Corporate</SectionLabel>
+        <SectionTitle>Sua infraestrutura chama nossa IA</SectionTitle>
+        <SectionDesc>
+          3 endpoints REST autenticados por API key. Seu TMS/ERP envia vídeo e fotos; recebe placa OCR, checklist de integridade, detecção e classificação de carga, conciliação vídeo×foto e veredicto — tudo com evidência visual (bounding boxes) e confiança por decisão. Webhook opcional para resultado assíncrono.
+        </SectionDesc>
+
+        <div style={{ marginTop: 24 }}>
+          <div style={{ fontSize: 11, fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.08em', color: '#64748b', marginBottom: 12 }}>
+            Endpoints principais
+          </div>
+          <CostTable>
+            <CostRow $header $cols="2fr 3fr">
+              <span>Endpoint</span>
+              <span>O que faz</span>
+            </CostRow>
+            <CostRow $cols="2fr 3fr">
+              <span style={{ fontFamily: 'Monaco, monospace', fontSize: 12 }}>POST /v1/inspections/checkin</span>
+              <span>Recebe vídeo (URL ou base64) → retorna placa + checklist + bbox</span>
+            </CostRow>
+            <CostRow $cols="2fr 3fr">
+              <span style={{ fontFamily: 'Monaco, monospace', fontSize: 12 }}>POST /v1/inspections/:id/checkout</span>
+              <span>Recebe fotos → retorna verdict + cargo classificada + conciliação</span>
+            </CostRow>
+            <CostRow $cols="2fr 3fr">
+              <span style={{ fontFamily: 'Monaco, monospace', fontSize: 12 }}>GET /v1/inspections/:id</span>
+              <span>Retorna laudo completo com todas as evidências persistidas</span>
+            </CostRow>
+          </CostTable>
+        </div>
+
+        <div style={{ marginTop: 24 }}>
+          <div style={{ fontSize: 11, fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.08em', color: '#64748b', marginBottom: 12 }}>
+            SLA técnico contratual
+          </div>
+          <CostTable>
+            <CostRow $header $cols="2fr 1fr">
+              <span>Métrica</span>
+              <span>Garantia</span>
+            </CostRow>
+            <CostRow $cols="2fr 1fr">
+              <span>Disponibilidade mensal</span>
+              <span className="accent">99,5%</span>
+            </CostRow>
+            <CostRow $cols="2fr 1fr">
+              <span>Latência p99 (checkin ou checkout)</span>
+              <span className="accent">&lt; 60 segundos</span>
+            </CostRow>
+            <CostRow $cols="2fr 1fr">
+              <span>Rate limit padrão</span>
+              <span className="accent">50 req/segundo</span>
+            </CostRow>
+            <CostRow $cols="2fr 1fr">
+              <span>Suporte técnico dedicado</span>
+              <span className="accent">resposta &lt; 4h úteis</span>
+            </CostRow>
+          </CostTable>
+        </div>
+
+        <div style={{ marginTop: 24 }}>
+          <div style={{ fontSize: 11, fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.08em', color: '#64748b', marginBottom: 12 }}>
+            Precificação API Corporate
+          </div>
+          <CostTable>
+            <CostRow $header $cols="1.5fr 1fr 1fr 1fr">
+              <span>Volume mensal</span>
+              <span>Preço/auditoria</span>
+              <span>MRR</span>
+              <span>Anual</span>
+            </CostRow>
+            <CostRow $cols="1.5fr 1fr 1fr 1fr">
+              <span>Até 250 auditorias</span>
+              <span className="accent">R$ 32,90</span>
+              <span className="muted">R$ 8.225</span>
+              <span className="muted">R$ 98.700</span>
+            </CostRow>
+            <CostRow $cols="1.5fr 1fr 1fr 1fr" $highlight>
+              <span style={{ fontWeight: 700 }}>500 auditorias/mês</span>
+              <span className="accent">R$ 29,90</span>
+              <span className="accent">R$ 14.950</span>
+              <span className="green">R$ 179.400</span>
+            </CostRow>
+            <CostRow $cols="1.5fr 1fr 1fr 1fr">
+              <span>1.000 auditorias/mês</span>
+              <span className="accent">R$ 24,90</span>
+              <span className="muted">R$ 24.900</span>
+              <span className="muted">R$ 298.800</span>
+            </CostRow>
+            <CostRow $cols="1.5fr 1fr 1fr 1fr">
+              <span>2.000+ auditorias/mês</span>
+              <span className="accent">Sob consulta</span>
+              <span className="muted">contrato dedicado</span>
+              <span className="muted">—</span>
+            </CostRow>
+          </CostTable>
+        </div>
+
+        <CostNote style={{ marginTop: 16 }}>
+          <strong>Setup técnico one-time: R$ 3.000</strong> — inclui provisioning de API key dedicada, ambiente sandbox, 2 sessões de integração (~8h) com time técnico do cliente, revisão de payload/webhook e documentação customizada com exemplos do stack em uso.
+          Modelo customizado ao cliente (fine-tuning com dados reais da operação) entra como entrega recorrente do contrato — sem custo adicional, absorvido pela Vega como investimento na qualidade contratual.
+        </CostNote>
+      </Section>
+
+      {/* ── MODELO DE PARCERIA AUTO-O-MATIC ── */}
+      <Section>
+        <SectionLabel>Modelo de Parceria</SectionLabel>
+        <SectionTitle>Como a Auto-o-Matic ganha em cada contrato indicado</SectionTitle>
+        <SectionDesc>
+          Revenue share recorrente de <strong>20% do MRR</strong> sobre todo contrato ativo indicado pela Auto-o-Matic —
+          seja Proposta 1 (plataforma UI) ou Proposta 2 (API Corporate). Pagamento direto mensal, sem markup, sem intermediação técnica.
+          A relação comercial com o cliente final é da Vega; a Auto-o-Matic recebe como canal preferencial pelo trabalho de ponte, qualificação e acompanhamento.
+        </SectionDesc>
+
+        <div style={{ marginTop: 24 }}>
+          <div style={{ fontSize: 11, fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.08em', color: '#64748b', marginBottom: 12 }}>
+            Payout por cenário
+          </div>
+          <CostTable>
+            <CostRow $header $cols="2fr 1fr 1fr 1fr">
+              <span>Cenário</span>
+              <span>MRR Vega</span>
+              <span>Auto-o-Matic/mês</span>
+              <span>Auto-o-Matic/ano</span>
+            </CostRow>
+            <CostRow $cols="2fr 1fr 1fr 1fr" $highlight>
+              <span style={{ fontWeight: 700 }}>1 cliente (500 auditorias/mês, Proposta 2)</span>
+              <span className="muted">R$ 14.950</span>
+              <span className="accent">R$ 2.990</span>
+              <span className="green">R$ 35.880</span>
+            </CostRow>
+            <CostRow $cols="2fr 1fr 1fr 1fr">
+              <span>3 clientes nesse porte</span>
+              <span className="muted">R$ 44.850</span>
+              <span className="accent">R$ 8.970</span>
+              <span className="green">R$ 107.640</span>
+            </CostRow>
+            <CostRow $cols="2fr 1fr 1fr 1fr">
+              <span>5 clientes nesse porte</span>
+              <span className="muted">R$ 74.750</span>
+              <span className="accent">R$ 14.950</span>
+              <span className="green">R$ 179.400</span>
+            </CostRow>
+            <CostRow $cols="2fr 1fr 1fr 1fr">
+              <span>10 clientes nesse porte</span>
+              <span className="muted">R$ 149.500</span>
+              <span className="accent">R$ 29.900</span>
+              <span className="green">R$ 358.800</span>
+            </CostRow>
+          </CostTable>
+        </div>
+
+        <CostNote style={{ marginTop: 16 }}>
+          <strong>Canal Vega preferencial para logística.</strong>{' '}
+          A Auto-o-Matic recebe suporte comercial dedicado, materiais de apoio para vendas, treinamento técnico do time e co-branding nas apresentações a clientes indicados.
+          O modelo é <strong>recorrente e escalável</strong>: cada contrato fechado gera MRR permanente enquanto o cliente permanece ativo.
+          A distribuição interna (entre Fábio, Ramiro ou demais envolvidos) fica a critério da Auto-o-Matic.
+        </CostNote>
       </Section>
 
       <Divider />
@@ -779,7 +953,7 @@ export default function Proposta() {
         <SectionLabel>Compromissos</SectionLabel>
         <SectionTitle>SLA e entregáveis</SectionTitle>
         <SectionDesc>
-          Métricas de performance garantidas contratualmente durante o piloto.
+          Métricas de performance garantidas contratualmente — aplicáveis a ambas as propostas (UI e API Corporate).
         </SectionDesc>
         <SlaGrid>
           {SLA_ITEMS.map((item, i) => (
@@ -952,12 +1126,15 @@ export default function Proposta() {
           </CostTable>
         </div>
 
-        {/* Custo total por CD */}
+        {/* Custo total por CD — Proposta 1 (UI) */}
         <div style={{ marginTop: 20 }}>
+          <div style={{ fontSize: 11, fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.08em', color: '#64748b', marginBottom: 8 }}>
+            Proposta 1 — Plataforma UI (cenário piloto)
+          </div>
           <CostTable>
             <CostRow $header $cols="2fr 1fr 1fr 1fr">
-              <span>Custo total por CD (piloto)</span>
-              <span>IA (300 insp.)</span>
+              <span>Cenário</span>
+              <span>IA</span>
               <span>Infra fixa</span>
               <span>Total Vega</span>
             </CostRow>
@@ -974,7 +1151,7 @@ export default function Proposta() {
               <span className="green">R$ 7.980/mês</span>
             </CostRow>
             <CostRow $cols="2fr 1fr 1fr 1fr">
-              <span>Margem operacional Vega</span>
+              <span>Margem operacional Vega (bruta)</span>
               <span className="muted">—</span>
               <span className="muted">—</span>
               <span className="green">R$ 7.628 (96%)</span>
@@ -982,11 +1159,83 @@ export default function Proposta() {
           </CostTable>
         </div>
 
-        <CostNote>
-          <strong>* Taxa de câmbio estimada em R$ 6,00/USD.</strong> Custos de IA crescem com o nº de fotos e inspeções —
-          mas a infra (Supabase + Vercel) é fixa. A Supabase cobre banco de dados PostgreSQL, autenticação, armazenamento
-          de fotos e vídeos, e execução das Edge Functions de IA. O Vercel cobre o frontend e CDN global.
-          Ambos já estão pagos e compartilhados com os demais produtos da Vega.
+        {/* Custo total — Proposta 2 (API Corporate) */}
+        <div style={{ marginTop: 32 }}>
+          <div style={{ fontSize: 11, fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.08em', color: '#64748b', marginBottom: 8 }}>
+            Proposta 2 — API Corporate (cenário 500 auditorias/mês)
+          </div>
+          <CostTable>
+            <CostRow $header $cols="2fr 1fr 1fr">
+              <span>Componente</span>
+              <span>Ano 1 (ramp)</span>
+              <span>Steady state</span>
+            </CostRow>
+            <CostRow $cols="2fr 1fr 1fr">
+              <span>Infra base (Supabase + Vercel + fallback + APM)</span>
+              <span className="muted">R$ 230</span>
+              <span className="muted">R$ 230</span>
+            </CostRow>
+            <CostRow $cols="2fr 1fr 1fr">
+              <span>Gemini VLM (500 × média R$ 0,45)</span>
+              <span className="muted">R$ 225</span>
+              <span className="muted">R$ 225</span>
+            </CostRow>
+            <CostRow $cols="2fr 1fr 1fr">
+              <span>SageMaker training + dataset storage</span>
+              <span className="muted">R$ 230</span>
+              <span className="muted">R$ 230</span>
+            </CostRow>
+            <CostRow $cols="2fr 1fr 1fr">
+              <span>YOLO inference endpoint (modelo customizado)</span>
+              <span className="muted">R$ 500</span>
+              <span className="muted">R$ 710</span>
+            </CostRow>
+            <CostRow $cols="2fr 1fr 1fr">
+              <span>Labeling (amortizado 1º ano, auto-label ano 2+)</span>
+              <span className="muted">R$ 1.500</span>
+              <span className="muted">R$ 300</span>
+            </CostRow>
+            <CostRow $cols="2fr 1fr 1fr">
+              <span>P&amp;D amortizado (engenharia de ML dedicada ao cliente)</span>
+              <span className="muted">R$ 3.000</span>
+              <span className="muted">R$ 1.500</span>
+            </CostRow>
+            <CostRow $cols="2fr 1fr 1fr" $highlight>
+              <span style={{ fontWeight: 700 }}>Total mensal Vega</span>
+              <span className="accent">R$ 5.685</span>
+              <span className="accent">R$ 3.195</span>
+            </CostRow>
+            <CostRow $cols="2fr 1fr 1fr">
+              <span>Por auditoria (÷ 500)</span>
+              <span className="accent">R$ 11,37</span>
+              <span className="accent">R$ 6,39</span>
+            </CostRow>
+            <CostRow $cols="2fr 1fr 1fr">
+              <span>Receita Vega @ R$ 29,90 (500 × R$ 29,90)</span>
+              <span className="muted">R$ 14.950</span>
+              <span className="muted">R$ 14.950</span>
+            </CostRow>
+            <CostRow $cols="2fr 1fr 1fr">
+              <span>Revenue share Auto-o-Matic (20%)</span>
+              <span className="muted">−R$ 2.990</span>
+              <span className="muted">−R$ 2.990</span>
+            </CostRow>
+            <CostRow $cols="2fr 1fr 1fr">
+              <span>Margem operacional Vega (líquida)</span>
+              <span className="green">R$ 6.275 (42%)</span>
+              <span className="green">R$ 8.765 (59%)</span>
+            </CostRow>
+          </CostTable>
+        </div>
+
+        <CostNote style={{ marginTop: 16 }}>
+          <strong>Diferenças entre os modelos.</strong>{' '}
+          A Proposta 1 (UI) opera só com VLM — Gemini 2.5 Pro responde por toda a inteligência. É rápido de implantar, tem margem alta, mas entrega qualidade best-effort (sem garantia contratual de acurácia).
+          A Proposta 2 (API Corporate) adiciona o stack de ML do Vixem — modelo YOLO fine-tuned com dados reais do cliente, ciclo contínuo de retraining, labeling inicial e P&amp;D dedicado. Custo maior pra Vega, mas viabiliza SLA contratual de acurácia e defensibilidade técnica de longo prazo.
+          A Vega absorve todo o delta de custo entre os modelos — o cliente não paga pelo aprendizado da máquina; paga pela qualidade entregue já amadurecida.
+          <br /><br />
+          <strong>* Taxa de câmbio estimada em R$ 6,00/USD.</strong> Supabase cobre banco PostgreSQL, autenticação, storage e execução de Edge Functions.
+          Vercel cobre docs e frontend reduzido. Ambos já estão pagos e compartilhados com demais produtos da Vega.
         </CostNote>
       </Section>
 
